@@ -21,7 +21,12 @@ LOCAL_CFLAGS += \
   -DENGINESDIR="\"/system/lib/ssl/engines\""
 
 # Intentionally excluded http://b/7079965
+# -DZLIB
 LOCAL_CFLAGS := $(filter-out -DZLIB, $(LOCAL_CFLAGS))
+
+# OpenSSL isn't ready to be built with strict aliasing, and fixing it without
+# breaking both API and ABI is hard
+LOCAL_CFLAGS += -fno-strict-aliasing
 
 # Debug
 # LOCAL_CFLAGS += -DCIPHER_DEBUG
